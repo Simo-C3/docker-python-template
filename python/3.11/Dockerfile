@@ -1,27 +1,24 @@
-FROM ubuntu:20.04
+FROM python:3.11.3
+
+RUN mkdir /code
+
+WORKDIR /code
 
 RUN apt update
+RUN apt install -y gcc musl-dev g++ file libffi-dev vim less
 
-RUN apt install -y tzdata
+RUN apt-get -y install locales && \
+    localedef -f UTF-8 -i ja_JP ja_JP.UTF-8
+ENV LANG ja_JP.UTF-8
+ENV LANGUAGE ja_JP:ja
+ENV LC_ALL ja_JP.UTF-8
+ENV TZ JST-9
+ENV TERM xterm
 
-RUN apt install -y wget build-essential libbz2-dev libdb-dev \
-    libreadline-dev libffi-dev libgdbm-dev liblzma-dev \
-    libncursesw5-dev libsqlite3-dev libssl-dev \
-    zlib1g-dev uuid-dev tk-dev
+RUN pip install --upgrade pip
+RUN pip install --upgrade setuptools
+RUN pip install pipenv
 
-RUN cd /tmp && \
-    wget https://www.python.org/ftp/python/3.11.3/Python-3.11.3.tgz && \
-    tar -xvzof Python-3.11.3.tgz && \
-    cd Python-3.11.3 && \
-    ./configure --enable-optimizations --prefix=/usr/local/ && \
-    make && \
-    make install
+COPY Pipfile Pipfile.lock /code/
 
-RUN apt -y install python3-pip
-RUN apt autoremove -y
-
-RUN mkdir /app
-WORKDIR /app
-
-COPY requirements.txt /app
-RUN pip3 install -r requirements.txt
+RUN pipenv install sync

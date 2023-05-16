@@ -1,15 +1,38 @@
 version: '3.9'
 services:
-  python3.8:
-    build: ./python/3.8/
+  u-python3.8:
+    build: ./python-on-ubuntu/3.8/
     tty: true
-  python3.9:
-    build: ./python/3.9/
+  u-python3.9:
+    build: ./python-on-ubuntu/3.9/
     tty: true
-  python3.10:
-    build: ./python/3.10/
+  u-python3.10:
+    build: ./python-on-ubuntu/3.10/
+    tty: true
+  u-python3.11:
+    build: ./python-on-ubuntu/3.11/
     tty: true
   python3.11:
     build: ./python/3.11/
+    volumes:
+      - ./python/3.11/:/code/
     tty: true
-
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+  cuda:
+    build: ./cuda/
+    volumes:
+      - ./cuda/:/code/
+    tty: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
