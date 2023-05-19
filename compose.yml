@@ -23,24 +23,29 @@ services:
           devices:
             - driver: nvidia
               count: all
-              capabilities: [gpu]
+              capabilities: [ gpu ]
   cuda:
     build: ./cuda/
     volumes:
       - ./cuda/:/code/
     tty: true
     stdin_open: true
+    environment:
+      - USER_NAME=shimomae
+      - USER_ID=2301
+      - GROUP_NAME=shimomae
+      - GROUP_ID=2301
     deploy:
       resources:
         reservations:
           devices:
             - driver: nvidia
               count: all
-              capabilities: [gpu]
-    command: > 
+              capabilities: [ gpu ]
+    command: >
       bash -c '
+        /var/tmp/entrypoint.sh &&
         pipenv --python 3.11 &&
         pipenv install &&
-        pipenv run python test.py &&
         bash
       '
