@@ -7,9 +7,12 @@ name = "pypi"
 tensorflow = "*"
 charset-normalizer = "*"
 pipenv = "*"
+torch = "*"
+torchvision = "*"
+torchaudio = "*"
 
 [dev-packages]
 
 [requires]
 python_version = "3.11"
-python_full_version = "3.11.3"
+python_full_version = "3.11.0"
