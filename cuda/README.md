@@ -8,7 +8,7 @@
 
 # 使い方
 ## 環境変数の設定
-compose.ymlに環境変数を記述する
+compose.ymlにある以下のような環境変数の記述部分を書き換える
 ```yml
 environment:
     - USER_NAME=<ユーザー名>

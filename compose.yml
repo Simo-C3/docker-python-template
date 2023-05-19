@@ -31,10 +31,10 @@ services:
     tty: true
     stdin_open: true
     environment:
-      - USER_NAME=shimomae
-      - USER_ID=2301
-      - GROUP_NAME=shimomae
-      - GROUP_ID=2301
+      - USER_NAME=<ユーザー名>
+      - USER_ID=<ユーザーID>
+      - GROUP_NAME=<グループ名>
+      - GROUP_ID=<グループID>
     deploy:
       resources:
         reservations:
