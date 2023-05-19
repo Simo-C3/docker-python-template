@@ -1,0 +1,3 @@
+#! /bin/sh
+
+docker compose exec cuda pipenv run python $@
