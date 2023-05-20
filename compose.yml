@@ -31,10 +31,10 @@ services:
     tty: true
     stdin_open: true
     environment:
-      - USER_NAME=<ユーザー名>
-      - USER_ID=<ユーザーID>
-      - GROUP_NAME=<グループ名>
-      - GROUP_ID=<グループID>
+      - USER_NAME=shimomae
+      - USER_ID=2301
+      - GROUP_NAME=shimomae
+      - GROUP_ID=2301
     deploy:
       resources:
         reservations:
@@ -42,10 +42,14 @@ services:
             - driver: nvidia
               count: all
               capabilities: [ gpu ]
-    command: >
+    entrypoint: >
       bash -c '
+        pwd &&
         /var/tmp/entrypoint.sh &&
-        pipenv --python 3.11 &&
-        pipenv install &&
+        cd ./gpu-test/ &&
+        pwd &&
+        pipenv sync &&
+        cd .. &&
+        pwd &&
         bash
       '

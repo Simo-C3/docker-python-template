@@ -13,9 +13,9 @@ RUN ln -s /usr/bin/python3.11 /usr/bin/python
 RUN pip install --upgrade pip
 RUN pip install pipenv
 
-COPY Pipfile Pipfile.lock /code/
+COPY ./gpu-test/Pipfile ./gpu-test/Pipfile.lock /code/gpu-test/
 
-RUN pipenv install
+RUN cd gpu-test && pipenv install && cd ..
 
 RUN export XLA_FLAGS=--xla_gpu_cuda_data_dir=/usr/lib/cuda
 

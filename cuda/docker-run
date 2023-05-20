@@ -1,3 +1,7 @@
-#! /bin/sh
+#!/bin/sh
+if [ $# != 2 ]; then
+    echo "Usage: $0 <path> <python file>"
+    exit 1
+fi
 
-docker compose exec cuda pipenv run python $@
+docker compose exec cuda bash -c "cd $1 && pipenv run python $2"

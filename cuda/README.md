@@ -57,11 +57,11 @@ exit
 ### コンテナ外の場合
 - dockreコマンド
     ```sh
-    docker compose exec cuda pipenv run python torch_test.py
+    docker compose exec cuda bash -c "cd gpu-test && pipenv run python torch_test.py"
     ```
 - シェルスクリプト
     ```sh
-    docker-run torch_test.py
+    docker-run gpu-test torch_test.py
     ```
 
 ### コンテナ内の場合
@@ -74,6 +74,8 @@ exit
     ```sh
     run torch_test.py
     ```
+
+＊どちらの場合でもカレントディレクトリが`Pipfile`, `Pipfile.lock`, 動かしたいPythonファイルのあるディレクトリである必要がある
 
 ### コンテナ内のpipenvシェル内
 ```sh
@@ -110,3 +112,5 @@ pipenv --python <Pythonバージョン>
     ```sh
     python  <Pythonファイルパス>
     ```
+
+＊`pipenv`コマンドは仮想環境を作る時以外はカレントディレクトリが`Pipfile`, `Pipfile.lock`のあるディレクトリである必要がある
