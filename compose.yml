@@ -30,11 +30,8 @@ services:
       - ./cuda/:/code/
     tty: true
     stdin_open: true
-    environment:
-      - USER_NAME=shimomae
-      - USER_ID=2301
-      - GROUP_NAME=shimomae
-      - GROUP_ID=2301
+    env_file:
+      - .env
     deploy:
       resources:
         reservations:
