@@ -25,7 +25,13 @@ services:
               count: all
               capabilities: [ gpu ]
   cuda:
-    build: ./cuda/
+    build:
+      context: ./cuda/
+      dockerfile: ./Dockerfile
+    container_name: simo-python-cuda
+    hostname: simo-python-cuda
+    networks:
+      - simo-python-cuda-net
     volumes:
       - ./cuda/:/code/
     tty: true
@@ -50,3 +56,9 @@ services:
         pwd &&
         bash
       '
+networks:
+  default:
+    external: true
+    name: bridge
+  simo-python-cuda-net:
+    name: docker.internal
